@@ -1,0 +1,25 @@
+# Python & Flask
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+*.db
+*.sqlite3
+instance/
+
+# Secrets — never commit .env files
+.env
+!.env.example
+
+# Node.js & React
+node_modules/
+dist/
+build/
+.DS_Store
+
+# Logs
+*.log

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Email Hub - Smart Email & Campaign Manager</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- React, ReactDOM, Babel, Axios, Lucide Icons -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: rgba(18, 25, 41, 0.85);
+      --bg-input: rgba(15, 23, 42, 0.6);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(99, 102, 241, 0.3);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary-500: #6366f1;
+      --purple-500: #a855f7;
+      --grad-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(at 15% 15%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+        radial-gradient(at 85% 85%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .app-container { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 260px;
+      background: rgba(15, 23, 42, 0.95);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 1rem;
+      backdrop-filter: blur(16px);
+    }
+
+    .main-content { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .header {
+      height: 70px;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .page-body { padding: 2rem; flex: 1; max-width: 1400px; margin: 0 auto; width: 100%; }
+
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      transition: all 0.25s ease;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary { background: var(--grad-primary); color: #fff; box-shadow: var(--shadow-glow); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(99, 102, 241, 0.45); }
+    .btn-secondary { background: rgba(255, 255, 255, 0.05); color: var(--text-main); border: 1px solid var(--border-color); }
+    .btn-danger { background: rgba(244, 63, 94, 0.15); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.3); }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      width: 100%;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+    .nav-btn.active {
+      color: #fff;
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.1) 100%);
+      border-left: 3px solid #6366f1;
+      font-weight: 600;
+    }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.1rem; }
+    .form-label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--primary-500);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+    .form-textarea { min-height: 120px; resize: vertical; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-sent { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-draft { background: rgba(245, 158, 11, 0.15); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-scheduled { background: rgba(6, 182, 212, 0.15); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.3); }
+
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(3, 7, 18, 0.75); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center; z-index: 100; padding: 1.5rem;
+    }
+    .modal-content {
+      background: #0f172a; border: 1px solid var(--border-glow);
+      border-radius: var(--radius-md); width: 100%; max-width: 600px;
+      max-height: 90vh; overflow-y: auto; padding: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // Axios API Config
+    const API = axios.create({ baseURL: '/api' });
+    API.interceptors.request.use((config) => {
+      const token = localStorage.getItem('token');
+      if (token) config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    });
+
+    // App Component
+    function App() {
+      const [token, setToken] = useState(localStorage.getItem('token') || '');
+      const [user, setUser] = useState(null);
+      const [activeTab, setActiveTab] = useState('dashboard');
+      const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
+
+      // Auth form states
+      const [email, setEmail] = useState('');
+      const [password, setPassword] = useState('');
+      const [username, setUsername] = useState('');
+      const [authError, setAuthError] = useState('');
+
+      // Dashboard stats
+      const [stats, setStats] = useState(null);
+      const [recentActivity, setRecentActivity] = useState([]);
+
+      // Emails CRUD states
+      const [emails, setEmails] = useState([]);
+      const [statusFilter, setStatusFilter] = useState('all');
+      const [isModalOpen, setIsModalOpen] = useState(false);
+      const [editingEmail, setEditingEmail] = useState(null);
+
+      // AI Copywriter states
+      const [aiPrompt, setAiPrompt] = useState('');
+      const [aiTone, setAiTone] = useState('Professional');
+      const [aiResult, setAiResult] = useState(null);
+      const [aiLoading, setAiLoading] = useState(false);
+
+      // Real Gmail Sync states
+      const [isGmailModalOpen, setIsGmailModalOpen] = useState(false);
+      const [gmailUser, setGmailUser] = useState('');
+      const [gmailAppPassword, setGmailAppPassword] = useState('');
+      const [gmailSyncing, setGmailSyncing] = useState(false);
+      const [gmailSyncStatus, setGmailSyncStatus] = useState('');
+
+      const handleSyncGmail = (e) => {
+        e.preventDefault();
+        if (!gmailUser || !gmailAppPassword) return;
+        setGmailSyncing(true);
+        setGmailSyncStatus('Connecting to Gmail IMAP server & downloading live emails...');
+
+        API.post('/gmail/sync', { gmail_user: gmailUser, app_password: gmailAppPassword })
+          .then(res => {
+            setGmailSyncStatus(`✅ ${res.data.message}`);
+            setTimeout(() => {
+              setIsGmailModalOpen(false);
+              setGmailSyncStatus('');
+              if (activeTab === 'dashboard') fetchDashboard();
+              if (activeTab === 'emails') fetchEmails();
+            }, 1800);
+          })
+          .catch(err => {
+            setGmailSyncStatus(`❌ ${err.response?.data?.message || 'Failed connecting to Gmail'}`);
+          })
+          .finally(() => setGmailSyncing(false));
+      };
+
+      // Fetch user profile if token present
+      useEffect(() => {
+        if (token) {
+          API.get('/auth/me')
+            .then(res => setUser(res.data.user))
+            .catch(() => logout());
+        }
+      }, [token]);
+
+      // Fetch dashboard data
+      const fetchDashboard = () => {
+        API.get('/dashboard/stats')
+          .then(res => {
+            setStats(res.data.stats);
+            setRecentActivity(res.data.recent_activity);
+          })
+          .catch(err => console.error(err));
+      };
+
+      // Fetch email list
+      const fetchEmails = () => {
+        API.get('/emails', { params: { status: statusFilter } })
+          .then(res => setEmails(res.data.emails))
+          .catch(err => console.error(err));
+      };
+
+      useEffect(() => {
+        if (token) {
+          if (activeTab === 'dashboard') fetchDashboard();
+          if (activeTab === 'emails') fetchEmails();
+        }
+      }, [token, activeTab, statusFilter]);
+
+      const handleAuth = (e) => {
+        e.preventDefault();
+        setAuthError('');
+        const endpoint = authMode === 'login' ? '/auth/login' : '/auth/signup';
+        const payload = authMode === 'login' ? { email, password } : { username, email, password };
+
+        API.post(endpoint, payload)
+          .then(res => {
+            localStorage.setItem('token', res.data.token);
+            setToken(res.data.token);
+            setUser(res.data.user);
+          })
+          .catch(err => setAuthError(err.response?.data?.message || 'Authentication failed'));
+      };
+
+      const logout = () => {
+        localStorage.removeItem('token');
+        setToken('');
+        setUser(null);
+      };
+
+      const handleSaveEmail = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = {
+          recipient: formData.get('recipient'),
+          subject: formData.get('subject'),
+          body: formData.get('body'),
+          category: formData.get('category'),
+          status: formData.get('status'),
+        };
+
+        const req = editingEmail 
+          ? API.put(`/emails/${editingEmail.id}`, data)
+          : API.post('/emails', data);
+
+        req.then(() => {
+          setIsModalOpen(false);
+          setEditingEmail(null);
+          if (activeTab === 'emails') fetchEmails();
+          if (activeTab === 'dashboard') fetchDashboard();
+        });
+      };
+
+      const handleDeleteEmail = (id) => {
+        if (confirm("Delete this email?")) {
+          API.delete(`/emails/${id}`).then(() => {
+            if (activeTab === 'emails') fetchEmails();
+            if (activeTab === 'dashboard') fetchDashboard();
+          });
+        }
+      };
+
+      const handleGenerateAI = (e) => {
+        e.preventDefault();
+        if (!aiPrompt) return;
+        setAiLoading(true);
+        API.post('/ai/generate', { prompt: aiPrompt, tone: aiTone })
+          .then(res => setAiResult(res.data))
+          .finally(() => setAiLoading(false));
+      };
+
+      // Render Login / Signup if not logged in
+      if (!token) {
+        return (
+          <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem' }}>
+            <div className="glass-card" style={{ width: '100%', maxWidth: '440px', padding: '2.5rem' }}>
+              <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                <h2 style={{ fontSize: '1.8rem', fontWeight: 800 }}>✉️ AI Email Hub</h2>
+                <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginTop: '0.25rem' }}>
+                  {authMode === 'login' ? 'Sign in to your AI Email Workspace' : 'Create your AI Email Account'}
+                </p>
+              </div>
+
+              {authError && (
+                <div style={{ padding: '0.75rem', background: 'rgba(244,63,94,0.15)', border: '1px solid rgba(244,63,94,0.3)', color: '#fda4af', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '1rem' }}>
+                  {authError}
+                </div>
+              )}
+
+              <form onSubmit={handleAuth}>
+                {authMode === 'signup' && (
+                  <div className="form-group">
+                    <label className="form-label">Full Name</label>
+                    <input type="text" required className="form-input" placeholder="Alex Morgan" value={username} onChange={e => setUsername(e.target.value)} />
+                  </div>
+                )}
+                <div className="form-group">
+                  <label className="form-label">Email Address</label>
+                  <input type="email" required className="form-input" placeholder="alex@company.com" value={email} onChange={e => setEmail(e.target.value)} />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Password</label>
+                  <input type="password" required className="form-input" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} />
+                </div>
+
+                <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', padding: '0.85rem' }}>
+                  {authMode === 'login' ? 'Sign In' : 'Create Account'}
+                </button>
+              </form>
+
+              <div style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.85rem', color: '#94a3b8' }}>
+                {authMode === 'login' ? "Don't have an account? " : "Already have an account? "}
+                <button 
+                  onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')}
+                  style={{ background: 'none', border: 'none', color: '#818cf8', fontWeight: 600, cursor: 'pointer' }}
+                >
+                  {authMode === 'login' ? 'Sign Up' : 'Log In'}
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // Logged In Layout
+      return (
+        <div className="app-container">
+          {/* Sidebar */}
+          <aside className="sidebar">
+            <div style={{ paddingBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.08)', marginBottom: '1.5rem' }}>
+              <h2 style={{ fontSize: '1.2rem', fontWeight: 800, background: 'linear-gradient(135deg, #fff, #cbd5e1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                ✉️ AI Email Hub
+              </h2>
+              <span style={{ fontSize: '0.7rem', color: '#6366f1', fontWeight: 700 }}>SMART MANAGER</span>
+            </div>
+
+            <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
+              <button className={`nav-btn ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveTab('dashboard')}>
+                📊 Dashboard
+              </button>
+              <button className={`nav-btn ${activeTab === 'emails' ? 'active' : ''}`} onClick={() => setActiveTab('emails')}>
+                📫 Email Manager
+              </button>
+              <button className={`nav-btn ${activeTab === 'ai' ? 'active' : ''}`} onClick={() => setActiveTab('ai')}>
+                ✨ AI Copywriter
+              </button>
+            </nav>
+          </aside>
+
+          {/* Main Area */}
+          <div className="main-content">
+            <header className="header">
+              <h3 style={{ fontSize: '1rem', fontWeight: 600 }}>
+                Welcome, <span style={{ color: '#818cf8' }}>{user?.username || 'User'}</span> 👋
+              </h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <button className="btn btn-secondary" onClick={() => setIsGmailModalOpen(true)} style={{ borderColor: 'rgba(234, 67, 53, 0.4)', color: '#ea4335', fontSize: '0.85rem' }}>
+                  📥 Sync Live Gmail
+                </button>
+                <button className="btn btn-primary" onClick={() => { setEditingEmail(null); setIsModalOpen(true); }} style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
+                  + Compose Email
+                </button>
+                <button onClick={logout} className="btn btn-danger" style={{ padding: '0.5rem 0.8rem', fontSize: '0.8rem' }}>
+                  Logout
+                </button>
+              </div>
+            </header>
+
+            <main className="page-body">
+              {/* DASHBOARD TAB */}
+              {activeTab === 'dashboard' && (
+                <div>
+                  <div className="glass-card" style={{ marginBottom: '1.5rem', background: 'linear-gradient(135deg, rgba(99,102,241,0.15), rgba(168,85,247,0.1))', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                      <h1 style={{ fontSize: '1.6rem', fontWeight: 800 }}>Email Operations Dashboard</h1>
+                      <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginTop: '0.25rem' }}>
+                        Manage drafts, track outreach statistics, and leverage AI copy generation.
+                      </p>
+                    </div>
+                    <button className="btn btn-secondary" onClick={() => setIsGmailModalOpen(true)} style={{ borderColor: 'rgba(234, 67, 53, 0.5)', background: 'rgba(234, 67, 53, 0.1)', color: '#ea4335' }}>
+                      📥 Connect Live Gmail Account
+                    </button>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem', marginBottom: '2rem' }}>
+                    <div className="glass-card">
+                      <span style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase' }}>Total Emails</span>
+                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '0.35rem' }}>{stats?.total_emails || 0}</h2>
+                    </div>
+                    <div className="glass-card">
+                      <span style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase' }}>Sent Outreach</span>
+                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '0.35rem', color: '#10b981' }}>{stats?.sent_count || 0}</h2>
+                    </div>
+                    <div className="glass-card">
+                      <span style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase' }}>Active Drafts</span>
+                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '0.35rem', color: '#f59e0b' }}>{stats?.draft_count || 0}</h2>
+                    </div>
+                    <div className="glass-card">
+                      <span style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase' }}>Templates</span>
+                      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '0.35rem', color: '#a855f7' }}>{stats?.templates_count || 0}</h2>
+                    </div>
+                  </div>
+
+                  <div className="glass-card">
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem' }}>Recent Email Activity</h3>
+                    {recentActivity.length === 0 ? (
+                      <p style={{ color: '#64748b', fontSize: '0.9rem' }}>No recent emails found. Compose your first email!</p>
+                    ) : (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                        {recentActivity.map(item => (
+                          <div key={item.id} style={{ padding: '0.85rem', background: 'rgba(15,23,42,0.5)', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div>
+                              <span className={`badge badge-${item.status}`}>{item.status}</span>
+                              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginTop: '0.3rem' }}>{item.subject}</h4>
+                              <p style={{ fontSize: '0.8rem', color: '#94a3b8' }}>To: {item.recipient}</p>
+                            </div>
+                            <button onClick={() => handleDeleteEmail(item.id)} style={{ background: 'none', border: 'none', color: '#f43f5e', cursor: 'pointer' }}>Delete</button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* EMAILS TAB */}
+              {activeTab === 'emails' && (
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                    <h1 style={{ fontSize: '1.6rem', fontWeight: 800 }}>Email Manager</h1>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      {['all', 'draft', 'sent'].map(st => (
+                        <button key={st} onClick={() => setStatusFilter(st)} className={`btn ${statusFilter === st ? 'btn-primary' : 'btn-secondary'}`} style={{ textTransform: 'capitalize', padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>
+                          {st}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    {emails.length === 0 ? (
+                      <div className="glass-card" style={{ textAlign: 'center', padding: '3rem', color: '#94a3b8' }}>No emails found.</div>
+                    ) : (
+                      emails.map(email => (
+                        <div key={email.id} className="glass-card">
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div>
+                              <span className={`badge badge-${email.status}`}>{email.status}</span>
+                              <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginTop: '0.4rem' }}>{email.subject}</h3>
+                              <p style={{ fontSize: '0.85rem', color: '#94a3b8' }}>To: {email.recipient}</p>
+                            </div>
+                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                              <button onClick={() => { setEditingEmail(email); setIsModalOpen(true); }} className="btn btn-secondary" style={{ padding: '0.4rem 0.75rem', fontSize: '0.8rem' }}>Edit</button>
+                              <button onClick={() => handleDeleteEmail(email.id)} className="btn btn-danger" style={{ padding: '0.4rem 0.75rem', fontSize: '0.8rem' }}>Delete</button>
+                            </div>
+                          </div>
+                          <div style={{ marginTop: '0.75rem', padding: '0.75rem', background: 'rgba(15,23,42,0.6)', borderRadius: '6px', fontSize: '0.85rem', color: '#cbd5e1', whiteSpace: 'pre-wrap' }}>
+                            {email.body}
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* AI COPYWRITER TAB */}
+              {activeTab === 'ai' && (
+                <div>
+                  <h1 style={{ fontSize: '1.6rem', fontWeight: 800, marginBottom: '1.5rem' }}>✨ AI Copywriter Suite</h1>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+                    <div className="glass-card">
+                      <form onSubmit={handleGenerateAI}>
+                        <div className="form-group">
+                          <label className="form-label">Email Objective</label>
+                          <textarea className="form-textarea" placeholder="E.g. Write a friendly follow-up email about our project proposal..." value={aiPrompt} onChange={e => setAiPrompt(e.target.value)} required />
+                        </div>
+                        <div className="form-group">
+                          <label className="form-label">Tone & Style</label>
+                          <select className="form-select" value={aiTone} onChange={e => setAiTone(e.target.value)}>
+                            <option value="Professional">Professional</option>
+                            <option value="Persuasive">Persuasive</option>
+                            <option value="Urgent">Urgent</option>
+                            <option value="Friendly">Friendly</option>
+                          </select>
+                        </div>
+                        <button type="submit" disabled={aiLoading} className="btn btn-primary" style={{ width: '100%', padding: '0.75rem' }}>
+                          {aiLoading ? 'Generating...' : 'Generate Copy with Gemini AI'}
+                        </button>
+                      </form>
+                    </div>
+
+                    <div className="glass-card">
+                      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem' }}>Generated Output</h3>
+                      {!aiResult ? (
+                        <p style={{ color: '#64748b', fontSize: '0.9rem' }}>Fill out the prompt on the left and click Generate.</p>
+                      ) : (
+                        <div>
+                          <h4 style={{ color: '#818cf8', fontWeight: 700, marginBottom: '0.5rem' }}>Subject: {aiResult.subject}</h4>
+                          <div style={{ padding: '1rem', background: 'rgba(15,23,42,0.6)', borderRadius: '8px', fontSize: '0.9rem', whiteSpace: 'pre-wrap', lineHeight: 1.5 }}>
+                            {aiResult.body}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </main>
+          </div>
+
+          {/* COMPOSE / EDIT MODAL */}
+          {isModalOpen && (
+            <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+              <div className="modal-content" onClick={e => e.stopPropagation()}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1.25rem' }}>
+                  {editingEmail ? 'Edit Email' : 'Compose Email'}
+                </h3>
+                <form onSubmit={handleSaveEmail}>
+                  <div className="form-group">
+                    <label className="form-label">Recipient Email</label>
+                    <input type="email" name="recipient" required className="form-input" defaultValue={editingEmail?.recipient || ''} placeholder="client@company.com" />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Subject</label>
+                    <input type="text" name="subject" required className="form-input" defaultValue={editingEmail?.subject || ''} placeholder="Email Subject" />
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div className="form-group">
+                      <label className="form-label">Category</label>
+                      <select name="category" className="form-select" defaultValue={editingEmail?.category || 'general'}>
+                        <option value="general">General</option>
+                        <option value="sales">Sales</option>
+                        <option value="support">Support</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Status</label>
+                      <select name="status" className="form-select" defaultValue={editingEmail?.status || 'draft'}>
+                        <option value="draft">Draft</option>
+                        <option value="sent">Sent</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Body</label>
+                    <textarea name="body" required className="form-textarea" defaultValue={editingEmail?.body || ''} placeholder="Write your email body..." />
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1.5rem' }}>
+                    <button type="button" onClick={() => setIsModalOpen(false)} className="btn btn-secondary">Cancel</button>
+                    <button type="submit" className="btn btn-primary">Save Email</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          {/* REAL GMAIL CONNECT MODAL */}
+          {isGmailModalOpen && (
+            <div className="modal-overlay" onClick={() => setIsGmailModalOpen(false)}>
+              <div className="modal-content" onClick={e => e.stopPropagation()}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.5rem', color: '#ea4335', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  📥 Connect Real-Time Gmail Account
+                </h3>
+                <p style={{ fontSize: '0.85rem', color: '#94a3b8', marginBottom: '1.25rem' }}>
+                  Fetch your live Gmail Inbox over secure SSL IMAP and summarize messages with Gemini AI.
+                </p>
+
+                {gmailSyncStatus && (
+                  <div style={{ padding: '0.75rem', borderRadius: '8px', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', fontSize: '0.85rem', marginBottom: '1rem', color: '#e2e8f0' }}>
+                    {gmailSyncStatus}
+                  </div>
+                )}
+
+                <form onSubmit={handleSyncGmail}>
+                  <div className="form-group">
+                    <label className="form-label">Your Gmail Address</label>
+                    <input 
+                      type="email" 
+                      required 
+                      className="form-input" 
+                      placeholder="your.email@gmail.com" 
+                      value={gmailUser} 
+                      onChange={e => setGmailUser(e.target.value)} 
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">Google 16-Character App Password</label>
+                    <input 
+                      type="password" 
+                      required 
+                      className="form-input" 
+                      placeholder="abcd efgh ijkl mnop" 
+                      value={gmailAppPassword} 
+                      onChange={e => setGmailAppPassword(e.target.value)} 
+                    />
+                  </div>
+
+                  <div style={{ padding: '0.75rem', borderRadius: '8px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '1.25rem', lineHeight: 1.4 }}>
+                    💡 <strong>How to get a Google App Password:</strong><br />
+                    1. Go to <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noreferrer" style={{ color: '#818cf8', fontWeight: 600 }}>myaccount.google.com/apppasswords</a><br />
+                    2. Type an App Name (e.g. <em>AI Email Hub</em>) and click <strong>Create</strong>.<br />
+                    3. Copy & paste the generated 16-character code above.
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+                    <button type="button" onClick={() => setIsGmailModalOpen(false)} className="btn btn-secondary">Cancel</button>
+                    <button type="submit" disabled={gmailSyncing} className="btn btn-primary" style={{ background: 'linear-gradient(135deg, #ea4335, #fbbc05)' }}>
+                      {gmailSyncing ? 'Syncing Gmail...' : 'Sync Live Inbox'}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

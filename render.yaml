@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: mailpilot
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+        sync: false
+      - key: GROQ_API_KEY
+        value: REPLACE_ME
+        sync: false
+      - key: GEMINI_API_KEY
+        value: REPLACE_ME
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        value: REPLACE_ME
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        value: REPLACE_ME
+        sync: false
+      - key: GOOGLE_REDIRECT_URI
+        value: REPLACE_ME
+        sync: false
+      - key: APP_SECRET_KEY
+        value: REPLACE_ME
+        sync: false
+      - key: FRONTEND_URL
+        value: REPLACE_ME
+        sync: false
+      - key: BACKEND_URL
+        value: REPLACE_ME
+        sync: false
+      - key: DATABASE_URL
+        value: REPLACE_ME
+        sync: false
