@@ -54,8 +54,8 @@ const Login = () => {
           }}>
             <Sparkles size={26} color="#fff" />
           </div>
-          <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#f8fafc' }}>Welcome to MailPilot</h2>
-          <p style={{ fontSize: '0.875rem', color: '#94a3b8', marginTop: '0.25rem' }}>
+          <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#0f172a' }}>Welcome to MailPilot</h2>
+          <p style={{ fontSize: '0.875rem', color: '#64748b', marginTop: '0.25rem' }}>
             Turn your inbox into an organized workspace.
           </p>
         </div>
@@ -66,7 +66,7 @@ const Login = () => {
             borderRadius: '8px',
             background: 'rgba(244, 63, 94, 0.15)',
             border: '1px solid rgba(244, 63, 94, 0.3)',
-            color: '#fda4af',
+            color: '#be123c',
             fontSize: '0.85rem',
             display: 'flex',
             alignItems: 'center',
@@ -93,6 +93,7 @@ const Login = () => {
             gap: '0.6rem',
             background: '#fff',
             color: '#1f2937',
+            border: '1px solid rgba(15, 23, 42, 0.15)',
           }}
         >
           <GoogleIcon />

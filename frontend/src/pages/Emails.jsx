@@ -83,8 +83,8 @@ const Emails = () => {
       {/* Header Bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
         <div>
-          <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#f8fafc' }}>Email Manager</h1>
-          <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Browse, edit, and organize all sent & draft communications</p>
+          <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#0f172a' }}>Email Manager</h1>
+          <p style={{ color: '#64748b', fontSize: '0.9rem' }}>Browse, edit, and organize all sent & draft communications</p>
         </div>
 
         <button className="btn btn-primary" onClick={() => handleOpenCompose(null)}>
@@ -95,7 +95,7 @@ const Emails = () => {
       {/* Filter & Search Controls */}
       <div className="glass-card" style={{ padding: '1rem', marginBottom: '1.5rem', display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Status Tabs */}
-        <div style={{ display: 'flex', background: 'rgba(15, 23, 42, 0.6)', padding: '0.25rem', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+        <div style={{ display: 'flex', background: 'rgba(15, 23, 42, 0.05)', padding: '0.25rem', borderRadius: '10px', border: '1px solid rgba(15, 23, 42, 0.1)' }}>
           {['all', 'draft', 'sent', 'scheduled'].map((st) => (
             <button
               key={st}
@@ -105,7 +105,7 @@ const Emails = () => {
                 borderRadius: '8px',
                 border: 'none',
                 background: statusFilter === st ? 'var(--grad-primary)' : 'transparent',
-                color: statusFilter === st ? '#fff' : '#94a3b8',
+                color: statusFilter === st ? '#fff' : '#64748b',
                 fontSize: '0.85rem',
                 fontWeight: 600,
                 cursor: 'pointer',
@@ -150,12 +150,12 @@ const Emails = () => {
 
       {/* Email List */}
       {loading ? (
-        <div style={{ padding: '2rem', textAlign: 'center', color: '#94a3b8' }}>Loading email list...</div>
+        <div style={{ padding: '2rem', textAlign: 'center', color: '#64748b' }}>Loading email list...</div>
       ) : emails.length === 0 ? (
         <div className="glass-card" style={{ textAlign: 'center', padding: '3rem' }}>
           <Mail size={40} color="#64748b" style={{ marginBottom: '1rem' }} />
-          <h3 style={{ fontSize: '1.1rem', color: '#f8fafc' }}>No emails found</h3>
-          <p style={{ color: '#94a3b8', fontSize: '0.875rem', marginTop: '0.25rem' }}>
+          <h3 style={{ fontSize: '1.1rem', color: '#0f172a' }}>No emails found</h3>
+          <p style={{ color: '#64748b', fontSize: '0.875rem', marginTop: '0.25rem' }}>
             No records match your filter parameters. Try clearing your search query.
           </p>
         </div>
@@ -171,10 +171,10 @@ const Emails = () => {
                     <span className="badge badge-category">{email.category}</span>
                     
                     <div style={{ minWidth: 0, flex: 1 }}>
-                      <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#f8fafc', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {email.subject}
                       </h3>
-                      <p style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.15rem' }}>
+                      <p style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '0.15rem' }}>
                         To: {email.recipient} • <span style={{ color: '#64748b' }}>{new Date(email.created_at || email.received_at).toLocaleDateString()}</span>
                       </p>
                     </div>
@@ -207,7 +207,7 @@ const Emails = () => {
 
                     <button 
                       onClick={(e) => { e.stopPropagation(); toggleExpand(email.id); }}
-                      style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '0.4rem' }}
+                      style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', padding: '0.4rem' }}
                       title="Toggle quick view"
                     >
                       {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
@@ -217,7 +217,7 @@ const Emails = () => {
 
                 {/* Expanded Body Drawer */}
                 {isExpanded && (
-                  <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                  <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(15, 23, 42, 0.1)' }}>
                     {email.ai_summary && (
                       <div style={{
                         padding: '0.75rem 1rem',
@@ -238,9 +238,9 @@ const Emails = () => {
                     <div style={{
                       padding: '1rem',
                       borderRadius: '8px',
-                      background: 'rgba(15, 23, 42, 0.6)',
+                      background: 'rgba(15, 23, 42, 0.05)',
                       fontSize: '0.9rem',
-                      color: '#cbd5e1',
+                      color: '#475569',
                       whiteSpace: 'pre-wrap',
                       lineHeight: 1.5,
                     }}>

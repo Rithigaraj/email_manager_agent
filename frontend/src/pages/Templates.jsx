@@ -66,8 +66,8 @@ const Templates = () => {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
         <div>
-          <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#f8fafc' }}>Email Templates</h1>
-          <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Save reusable email content structures for quick deployment</p>
+          <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#0f172a' }}>Email Templates</h1>
+          <p style={{ color: '#64748b', fontSize: '0.9rem' }}>Save reusable email content structures for quick deployment</p>
         </div>
 
         <button className="btn btn-primary" onClick={() => setShowAddModal(true)}>
@@ -76,12 +76,12 @@ const Templates = () => {
       </div>
 
       {loading ? (
-        <div style={{ color: '#94a3b8', padding: '2rem' }}>Loading templates...</div>
+        <div style={{ color: '#64748b', padding: '2rem' }}>Loading templates...</div>
       ) : templates.length === 0 ? (
         <div className="glass-card" style={{ textAlign: 'center', padding: '3rem' }}>
           <FileText size={40} color="#64748b" style={{ marginBottom: '1rem' }} />
-          <h3 style={{ fontSize: '1.1rem', color: '#f8fafc' }}>No Templates Saved</h3>
-          <p style={{ color: '#94a3b8', fontSize: '0.875rem', marginTop: '0.25rem', marginBottom: '1rem' }}>
+          <h3 style={{ fontSize: '1.1rem', color: '#0f172a' }}>No Templates Saved</h3>
+          <p style={{ color: '#64748b', fontSize: '0.875rem', marginTop: '0.25rem', marginBottom: '1rem' }}>
             Create reusable subject and body templates to streamline your daily emailing.
           </p>
           <button className="btn btn-primary" onClick={() => setShowAddModal(true)}>
@@ -100,7 +100,7 @@ const Templates = () => {
                   </button>
                 </div>
 
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#f8fafc', marginBottom: '0.35rem' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0f172a', marginBottom: '0.35rem' }}>
                   {tpl.name}
                 </h3>
                 
@@ -111,9 +111,9 @@ const Templates = () => {
                 <div style={{
                   padding: '0.75rem',
                   borderRadius: '8px',
-                  background: 'rgba(15, 23, 42, 0.6)',
+                  background: 'rgba(15, 23, 42, 0.04)',
                   fontSize: '0.85rem',
-                  color: '#cbd5e1',
+                  color: '#475569',
                   maxHeight: '120px',
                   overflowY: 'auto',
                   lineHeight: 1.4,
@@ -123,7 +123,7 @@ const Templates = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem', paddingTop: '0.75rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem', paddingTop: '0.75rem', borderTop: '1px solid rgba(15, 23, 42, 0.1)' }}>
                 <button
                   onClick={() => handleCopyBody(tpl.id, tpl.body_template)}
                   className="btn btn-secondary"
@@ -142,9 +142,9 @@ const Templates = () => {
       {showAddModal && (
         <div className="modal-overlay" onClick={() => setShowAddModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#f8fafc' }}>Create Email Template</h3>
-              <button onClick={() => setShowAddModal(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(15, 23, 42, 0.1)' }}>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#0f172a' }}>Create Email Template</h3>
+              <button onClick={() => setShowAddModal(false)} style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer' }}>
                 <X size={20} />
               </button>
             </div>

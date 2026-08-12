@@ -71,14 +71,14 @@ const AIAssistant = () => {
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.25rem 0.65rem', borderRadius: '20px', background: 'rgba(168, 85, 247, 0.2)', color: '#d8b4fe', fontSize: '0.75rem', fontWeight: 700, marginBottom: '0.5rem' }}>
           <Sparkles size={14} /> POWERED BY GOOGLE GEMINI AI
         </div>
-        <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#f8fafc' }}>AI Email Copywriter Workbench</h1>
-        <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Generate high-converting email copy tailored to any tone or recipient</p>
+        <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#0f172a' }}>AI Email Copywriter Workbench</h1>
+        <p style={{ color: '#64748b', fontSize: '0.9rem' }}>Generate high-converting email copy tailored to any tone or recipient</p>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
         {/* Left Side: Prompt & Controls */}
         <div className="glass-card">
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#f8fafc', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0f172a', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Wand2 size={18} color="#6366f1" /> Prompt Specifications
           </h3>
 
@@ -152,7 +152,7 @@ const AIAssistant = () => {
         {/* Right Side: Generated Output Preview */}
         <div className="glass-card" style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#f8fafc' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0f172a' }}>
               Generated Result
             </h3>
 
@@ -172,7 +172,7 @@ const AIAssistant = () => {
           {!generatedOutput ? (
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: '#64748b', padding: '2rem' }}>
               <Wand2 size={48} color="#334155" style={{ marginBottom: '1rem' }} />
-              <h4 style={{ color: '#94a3b8' }}>Ready to Write</h4>
+              <h4 style={{ color: '#64748b' }}>Ready to Write</h4>
               <p style={{ fontSize: '0.85rem', maxWidth: '300px', marginTop: '0.25rem' }}>
                 Fill out the objective prompt on the left and click <strong>Generate Email Copy</strong>.
               </p>
@@ -181,16 +181,16 @@ const AIAssistant = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
               <div style={{ padding: '0.75rem 1rem', borderRadius: '8px', background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.2)' }}>
                 <span style={{ fontSize: '0.75rem', color: '#818cf8', fontWeight: 700, textTransform: 'uppercase' }}>Subject Line</span>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc', marginTop: '0.2rem' }}>
+                <h4 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#0f172a', marginTop: '0.2rem' }}>
                   {generatedOutput.subject}
                 </h4>
               </div>
 
-              <div style={{ flex: 1, padding: '1rem', borderRadius: '8px', background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255, 255, 255, 0.05)', whiteSpace: 'pre-wrap', lineHeight: 1.6, fontSize: '0.925rem', color: '#e2e8f0' }}>
+              <div style={{ flex: 1, padding: '1rem', borderRadius: '8px', background: 'rgba(15, 23, 42, 0.04)', border: '1px solid rgba(15, 23, 42, 0.1)', whiteSpace: 'pre-wrap', lineHeight: 1.6, fontSize: '0.925rem', color: '#1e293b' }}>
                 {generatedOutput.body}
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem', color: '#94a3b8' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem', color: '#64748b' }}>
                 <span>Detected Mood: <strong style={{ color: '#a855f7' }}>{generatedOutput.sentiment}</strong></span>
                 <span>Tone: <strong style={{ color: '#818cf8' }}>{tone}</strong></span>
               </div>

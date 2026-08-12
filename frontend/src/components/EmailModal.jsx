@@ -93,11 +93,11 @@ const EmailModal = ({ isOpen, onClose, onSave, emailToEdit = null }) => {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#f8fafc' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(15, 23, 42, 0.1)' }}>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#0f172a' }}>
             {emailToEdit ? 'Edit Email' : 'Compose New Email'}
           </h3>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer' }}>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer' }}>
             <X size={20} />
           </button>
         </div>
@@ -121,7 +121,7 @@ const EmailModal = ({ isOpen, onClose, onSave, emailToEdit = null }) => {
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               <Sparkles size={18} color="#a855f7" />
-              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#e2e8f0' }}>Need help writing? Use AI Email Generator</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#1e293b' }}>Need help writing? Use AI Email Generator</span>
             </div>
             <span style={{ fontSize: '0.75rem', color: '#a855f7', fontWeight: 700 }}>Open AI Tools →</span>
           </div>
@@ -131,7 +131,7 @@ const EmailModal = ({ isOpen, onClose, onSave, emailToEdit = null }) => {
               <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#d8b4fe', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <Sparkles size={16} /> AI Copywriter Assistant
               </span>
-              <button onClick={() => setShowAiSection(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '0.75rem', cursor: 'pointer' }}>Close</button>
+              <button onClick={() => setShowAiSection(false)} style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '0.75rem', cursor: 'pointer' }}>Close</button>
             </div>
             
             <div className="form-group" style={{ marginBottom: '0.75rem' }}>
@@ -225,7 +225,7 @@ const EmailModal = ({ isOpen, onClose, onSave, emailToEdit = null }) => {
         </div>
 
         {/* Footer Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(15, 23, 42, 0.1)' }}>
           <button onClick={onClose} className="btn btn-secondary">Cancel</button>
           <button onClick={() => handleSubmit('draft')} disabled={saving} className="btn btn-secondary" style={{ gap: '0.4rem' }}>
             <Save size={16} /> Save Draft

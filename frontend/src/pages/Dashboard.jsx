@@ -51,7 +51,7 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return <div style={{ color: '#94a3b8', padding: '2rem' }}>Loading dashboard analytics...</div>;
+    return <div style={{ color: '#64748b', padding: '2rem' }}>Loading dashboard analytics...</div>;
   }
 
   return (
@@ -70,10 +70,10 @@ const Dashboard = () => {
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.25rem 0.65rem', borderRadius: '20px', background: 'rgba(168, 85, 247, 0.2)', color: '#d8b4fe', fontSize: '0.75rem', fontWeight: 700, marginBottom: '0.75rem' }}>
             <Sparkles size={14} /> AI POWERED WORKFLOWS
           </div>
-          <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#f8fafc' }}>
+          <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0f172a' }}>
             Email Operations Dashboard
           </h1>
-          <p style={{ color: '#94a3b8', fontSize: '0.95rem', marginTop: '0.35rem', maxWidth: '600px' }}>
+          <p style={{ color: '#64748b', fontSize: '0.95rem', marginTop: '0.35rem', maxWidth: '600px' }}>
             Manage drafts, track outreach statistics, and leverage AI copy generation for instant high-converting emails.
           </p>
         </div>
@@ -125,7 +125,7 @@ const Dashboard = () => {
         {/* Recent Activity List */}
         <div className="glass-card">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Clock size={18} color="#818cf8" /> Recent Activity
             </h3>
             <button className="btn btn-secondary" onClick={() => navigate('/emails')} style={{ padding: '0.4rem 0.75rem', fontSize: '0.8rem' }}>
@@ -146,8 +146,8 @@ const Dashboard = () => {
                   style={{
                     padding: '1rem',
                     borderRadius: '10px',
-                    background: 'rgba(15, 23, 42, 0.5)',
-                    border: '1px solid rgba(255, 255, 255, 0.05)',
+                    background: 'rgba(15, 23, 42, 0.04)',
+                    border: '1px solid rgba(15, 23, 42, 0.1)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
@@ -155,22 +155,22 @@ const Dashboard = () => {
                     transition: 'all 0.2s ease',
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)'}
-                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)'}
+                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(15, 23, 42, 0.1)'}
                 >
                   <div style={{ minWidth: 0, flex: 1, paddingRight: '1rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
                       <span className={`badge badge-${item.status}`}>{item.status}</span>
                       <span className="badge badge-category">{item.category}</span>
                       {item.ai_sentiment && (
-                        <span style={{ fontSize: '0.7rem', color: '#cbd5e1', background: 'rgba(255, 255, 255, 0.08)', padding: '0.15rem 0.5rem', borderRadius: '10px' }}>
+                        <span style={{ fontSize: '0.7rem', color: '#475569', background: 'rgba(15, 23, 42, 0.08)', padding: '0.15rem 0.5rem', borderRadius: '10px' }}>
                           Mood: {item.ai_sentiment}
                         </span>
                       )}
                     </div>
-                    <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#f8fafc', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <h4 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#0f172a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {item.subject}
                     </h4>
-                    <p style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.15rem' }}>
+                    <p style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '0.15rem' }}>
                       To: {item.recipient}
                     </p>
                   </div>
@@ -199,7 +199,7 @@ const Dashboard = () => {
 
         {/* Category Breakdown Widget */}
         <div className="glass-card">
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#f8fafc', marginBottom: '1.25rem' }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0f172a', marginBottom: '1.25rem' }}>
             Category Distribution
           </h3>
 
@@ -212,10 +212,10 @@ const Dashboard = () => {
                 return (
                   <div key={cat}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '0.35rem' }}>
-                      <span style={{ color: '#cbd5e1', fontWeight: 600, textTransform: 'capitalize' }}>{cat}</span>
-                      <span style={{ color: '#94a3b8' }}>{count} ({percentage}%)</span>
+                      <span style={{ color: '#475569', fontWeight: 600, textTransform: 'capitalize' }}>{cat}</span>
+                      <span style={{ color: '#64748b' }}>{count} ({percentage}%)</span>
                     </div>
-                    <div style={{ height: '8px', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '4px', overflow: 'hidden' }}>
+                    <div style={{ height: '8px', background: 'rgba(15, 23, 42, 0.08)', borderRadius: '4px', overflow: 'hidden' }}>
                       <div style={{
                         height: '100%',
                         width: `${percentage}%`,

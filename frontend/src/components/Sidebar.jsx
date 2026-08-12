@@ -13,15 +13,15 @@ const Sidebar = () => {
   return (
     <aside style={{
       width: '260px',
-      background: 'rgba(15, 23, 42, 0.9)',
-      borderRight: '1px solid rgba(255, 255, 255, 0.08)',
+      background: 'rgba(255, 255, 255, 0.9)',
+      borderRight: '1px solid rgba(15, 23, 42, 0.1)',
       display: 'flex',
       flexDirection: 'column',
       padding: '1.5rem 1rem',
       backdropFilter: 'blur(16px)',
     }}>
       {/* Brand Header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0 0.5rem 1.5rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0 0.5rem 1.5rem', borderBottom: '1px solid rgba(15, 23, 42, 0.08)' }}>
         <div style={{
           width: '38px',
           height: '38px',
@@ -35,7 +35,7 @@ const Sidebar = () => {
           <Sparkles size={20} color="#fff" />
         </div>
         <div>
-          <h2 style={{ fontSize: '1.1rem', fontWeight: 800, background: 'linear-gradient(135deg, #fff 0%, #cbd5e1 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <h2 style={{ fontSize: '1.1rem', fontWeight: 800, background: 'linear-gradient(135deg, #0f172a 0%, #64748b 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             AI Email Hub
           </h2>
           <span style={{ fontSize: '0.7rem', color: '#6366f1', fontWeight: 600, letterSpacing: '0.05em' }}>SMART MANAGER</span>
@@ -57,8 +57,8 @@ const Sidebar = () => {
                 gap: '0.75rem',
                 padding: '0.75rem 1rem',
                 borderRadius: '10px',
-                color: isActive ? '#fff' : '#94a3b8',
-                background: isActive ? 'linear-gradient(90deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.1) 100%)' : 'transparent',
+                color: isActive ? '#4f46e5' : '#64748b',
+                background: isActive ? 'linear-gradient(90deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.08) 100%)' : 'transparent',
                 borderLeft: isActive ? '3px solid #6366f1' : '3px solid transparent',
                 fontWeight: isActive ? 600 : 500,
                 textDecoration: 'none',
@@ -78,7 +78,7 @@ const Sidebar = () => {
           <Sparkles size={14} color="#a855f7" />
           <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#a855f7' }}>Gemini AI Ready</span>
         </div>
-        <p style={{ fontSize: '0.75rem', color: '#94a3b8', lineHeight: 1.3 }}>
+        <p style={{ fontSize: '0.75rem', color: '#64748b', lineHeight: 1.3 }}>
           Draft & summarize emails automatically with AI.
         </p>
       </div>

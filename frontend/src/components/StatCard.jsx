@@ -4,10 +4,10 @@ const StatCard = ({ title, value, icon: Icon, color = '#6366f1', trend }) => {
   return (
     <div className="glass-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <div>
-        <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
           {title}
         </span>
-        <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '0.35rem 0 0.2rem', color: '#f8fafc' }}>
+        <h2 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '0.35rem 0 0.2rem', color: '#0f172a' }}>
           {value}
         </h2>
         {trend && (

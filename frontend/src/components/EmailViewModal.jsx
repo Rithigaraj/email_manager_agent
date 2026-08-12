@@ -44,19 +44,19 @@ const EmailViewModal = ({ isOpen, onClose, email, onEdit, onDelete, onRefresh })
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" style={{ maxWidth: '650px', width: '90%' }} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1.25rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1.25rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(15, 23, 42, 0.1)' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
               <span className={`badge badge-${email.status || 'sent'}`}>{email.status || 'sent'}</span>
               <span className="badge badge-category">{email.category || 'general'}</span>
               {email.is_starred && <span style={{ color: '#f59e0b', fontSize: '0.8rem' }}>★ Starred</span>}
             </div>
-            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#f8fafc', lineHeight: 1.3 }}>
+            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#0f172a', lineHeight: 1.3 }}>
               {email.subject}
             </h2>
           </div>
 
-          <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '0.25rem' }}>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', padding: '0.25rem' }}>
             <X size={20} />
           </button>
         </div>
@@ -65,20 +65,20 @@ const EmailViewModal = ({ isOpen, onClose, email, onEdit, onDelete, onRefresh })
         <div style={{
           padding: '0.85rem 1rem',
           borderRadius: '10px',
-          background: 'rgba(15, 23, 42, 0.6)',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
+          background: 'rgba(15, 23, 42, 0.04)',
+          border: '1px solid rgba(15, 23, 42, 0.1)',
           marginBottom: '1.25rem',
           fontSize: '0.875rem',
-          color: '#94a3b8',
+          color: '#64748b',
           display: 'flex',
           flexDirection: 'column',
           gap: '0.35rem',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span><strong style={{ color: '#cbd5e1' }}>From:</strong> {email.sender || 'Unknown'}</span>
+            <span><strong style={{ color: '#475569' }}>From:</strong> {email.sender || 'Unknown'}</span>
             <span style={{ fontSize: '0.8rem', color: '#64748b' }}>{formattedDate}</span>
           </div>
-          <div><strong style={{ color: '#cbd5e1' }}>To:</strong> {email.recipient || 'Unknown'}</div>
+          <div><strong style={{ color: '#475569' }}>To:</strong> {email.recipient || 'Unknown'}</div>
         </div>
 
         {/* AI Summary Banner */}
@@ -110,10 +110,10 @@ const EmailViewModal = ({ isOpen, onClose, email, onEdit, onDelete, onRefresh })
         <div style={{
           padding: '1.25rem',
           borderRadius: '10px',
-          background: 'rgba(15, 23, 42, 0.8)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'rgba(15, 23, 42, 0.04)',
+          border: '1px solid rgba(15, 23, 42, 0.1)',
           fontSize: '0.925rem',
-          color: '#e2e8f0',
+          color: '#1e293b',
           whiteSpace: 'pre-wrap',
           lineHeight: 1.6,
           maxHeight: '260px',
@@ -126,7 +126,7 @@ const EmailViewModal = ({ isOpen, onClose, email, onEdit, onDelete, onRefresh })
         {/* Attachments Section */}
         {email.attachments && email.attachments.length > 0 && (
           <div style={{ marginBottom: '1.25rem' }}>
-            <h4 style={{ fontSize: '0.85rem', fontWeight: 700, color: '#94a3b8', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <h4 style={{ fontSize: '0.85rem', fontWeight: 700, color: '#64748b', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
               <Paperclip size={14} /> Attachments ({email.attachments.length})
             </h4>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
@@ -134,10 +134,10 @@ const EmailViewModal = ({ isOpen, onClose, email, onEdit, onDelete, onRefresh })
                 <div key={idx} style={{
                   padding: '0.5rem 0.75rem',
                   borderRadius: '8px',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+          background: 'rgba(15, 23, 42, 0.04)',
+          border: '1px solid rgba(15, 23, 42, 0.15)',
                   fontSize: '0.8rem',
-                  color: '#cbd5e1',
+                  color: '#475569',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem',
@@ -158,7 +158,7 @@ const EmailViewModal = ({ isOpen, onClose, email, onEdit, onDelete, onRefresh })
               <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#818cf8', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <Reply size={15} /> Replying to {email.sender !== 'user@gmail.com' ? email.sender : email.recipient}
               </span>
-              <button onClick={() => setShowReplyBox(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '0.75rem', cursor: 'pointer' }}>
+              <button onClick={() => setShowReplyBox(false)} style={{ background: 'none', border: 'none', color: '#64748b', fontSize: '0.75rem', cursor: 'pointer' }}>
                 Cancel
               </button>
             </div>
@@ -194,7 +194,7 @@ const EmailViewModal = ({ isOpen, onClose, email, onEdit, onDelete, onRefresh })
         )}
 
         {/* Footer Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '1rem', borderTop: '1px solid rgba(15, 23, 42, 0.1)' }}>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             <button
               onClick={() => setShowReplyBox(!showReplyBox)}

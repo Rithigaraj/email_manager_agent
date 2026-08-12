@@ -15,9 +15,9 @@ const Navbar = ({ onOpenNewEmail }) => {
   return (
     <header style={{
       height: '70px',
-      background: 'rgba(15, 23, 42, 0.6)',
+      background: 'rgba(255, 255, 255, 0.75)',
       backdropFilter: 'blur(12px)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+      borderBottom: '1px solid rgba(15, 23, 42, 0.1)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -27,7 +27,7 @@ const Navbar = ({ onOpenNewEmail }) => {
       zIndex: 50,
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#f8fafc' }}>
+        <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>
           Welcome back, <span style={{ color: '#818cf8' }}>{user?.name || 'User'}</span> 👋
         </h3>
       </div>
@@ -45,8 +45,8 @@ const Navbar = ({ onOpenNewEmail }) => {
           gap: '0.5rem',
           padding: '0.35rem 0.75rem',
           borderRadius: '20px',
-          background: 'rgba(255, 255, 255, 0.05)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
+          background: 'rgba(15, 23, 42, 0.05)',
+          border: '1px solid rgba(15, 23, 42, 0.1)',
         }}>
           <div style={{
             width: '26px',
@@ -62,7 +62,7 @@ const Navbar = ({ onOpenNewEmail }) => {
           }}>
             {user?.username ? user.username.charAt(0).toUpperCase() : 'U'}
           </div>
-          <span style={{ fontSize: '0.85rem', color: '#cbd5e1', fontWeight: 500 }}>{user?.email}</span>
+          <span style={{ fontSize: '0.85rem', color: '#334155', fontWeight: 500 }}>{user?.email}</span>
         </div>
 
         <button 
