@@ -99,6 +99,8 @@ async def google_auth_callback(code: str = None, error: str = None, db: Session 
         )
 
     session_token = create_access_token(subject=user.id)
+    # Redirect back to the frontend after a successful Google login. The session
+    # cookie set below is scoped to the app and sent on subsequent requests.
     response = RedirectResponse(url=settings.FRONTEND_URL)
     response.set_cookie(
         key="session_token",

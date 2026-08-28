@@ -266,7 +266,7 @@ class GmailService:
         for msg in MOCK_EMAILS:
             if str(msg["gmail_message_id"]) == str(message_id) or str(msg["id"]) == str(message_id):
                 return msg
-        return MOCK_EMAILS[0] if MOCK_EMAILS else None
+        return None
 
     def create_email(self, data: Dict[str, Any]) -> Dict[str, Any]:
         timestamp = int(datetime.datetime.utcnow().timestamp())
@@ -343,7 +343,7 @@ class GmailService:
                 if is_archived:
                     msg["folder"] = "ARCHIVE"
                 return {"status": "success", "message": msg}
-        return {"status": "success"}
+        return {"status": "error", "message": "Email not found"}
 
     def delete_email(self, message_id: str) -> Dict[str, Any]:
         global MOCK_EMAILS
@@ -381,9 +381,44 @@ class GmailService:
             
         return body_data if body_data else msg.get("snippet", "No body content available.")
 
+    def _extract_html_body(self, msg: dict) -> str:
+        """Extracts the HTML body payload from a Gmail message, if present."""
+        payload = msg.get("payload", {})
+        html_data = ""
+
+        def parse_parts(parts):
+            nonlocal html_data
+            for part in parts:
+                mime = part.get("mimeType", "")
+                data = part.get("body", {}).get("data")
+                if data and mime == "text/html":
+                    try:
+                        html_data = base64.urlsafe_b64decode(data.encode("ASCII")).decode("utf-8", errors="ignore")
+                        return
+                    except Exception:
+                        pass
+                elif part.get("parts"):
+                    parse_parts(part.get("parts"))
+                    if html_data:
+                        return
+
+        if "parts" in payload:
+            parse_parts(payload["parts"])
+        elif payload.get("body", {}).get("data"):
+            data = payload["body"]["data"]
+            try:
+                html_data = base64.urlsafe_b64decode(data.encode("ASCII")).decode("utf-8", errors="ignore")
+            except Exception:
+                pass
+
+        return html_data
+
     def _parse_gmail_message(self, msg: dict) -> dict:
         headers = {h['name']: h['value'] for h in msg.get('payload', {}).get('headers', [])}
         body = self._extract_body(msg)
+        body_html = self._extract_html_body(msg)
+        if not body or body == msg.get("snippet", "") and body_html:
+            body = body_html or body
         date_str = headers.get('Date', datetime.datetime.utcnow().isoformat() + "Z")
         sender = headers.get('From', '')
         recipient = headers.get('To', '')
@@ -401,8 +436,8 @@ class GmailService:
             "recipient": recipient,
             "subject": subject,
             "snippet": msg.get('snippet', body[:120]),
-            "body_text": body,
-            "body_html": f"<p>{body.replace('\n', '<br>')}</p>",
+            "body_text": None if body == body_html else body,
+            "body_html": body_html,
             "body": body,
             "received_at": date_str,
             "created_at": date_str,

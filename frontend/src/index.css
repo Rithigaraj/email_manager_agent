@@ -261,3 +261,48 @@
 .dark ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
 }
+
+/* Rendered HTML email bodies */
+.email-body-html {
+  word-break: break-word;
+}
+.email-body-html p {
+  margin: 0 0 0.75rem;
+}
+.email-body-html h1,
+.email-body-html h2,
+.email-body-html h3,
+.email-body-html h4 {
+  margin: 0.75rem 0 0.5rem;
+  color: #0f172a;
+}
+.email-body-html ul,
+.email-body-html ol {
+  margin: 0 0 0.75rem 1.25rem;
+  padding: 0;
+}
+.email-body-html li {
+  margin-bottom: 0.25rem;
+}
+.email-body-html a {
+  color: #4f46e5;
+}
+.email-body-html img {
+  max-width: 100%;
+  height: auto;
+}
+.email-body-html blockquote {
+  margin: 0.75rem 0;
+  padding-left: 0.75rem;
+  border-left: 3px solid #cbd5e1;
+  color: #64748b;
+}
+.email-body-html table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.email-body-html td,
+.email-body-html th {
+  border: 1px solid #e2e8f0;
+  padding: 0.4rem;
+}

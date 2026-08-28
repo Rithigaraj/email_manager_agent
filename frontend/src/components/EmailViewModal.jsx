@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Sparkles, Reply, Edit3, Trash2, Paperclip, Send, Loader2, CheckCircle } from 'lucide-react';
 import { emailAPI } from '../services/api';
+import EmailBody, { RenderHtmlText } from './EmailBody';
 
 const EmailViewModal = ({ isOpen, onClose, email, onEdit, onDelete, onRefresh }) => {
   const [replyText, setReplyText] = useState('');
@@ -102,7 +103,7 @@ const EmailViewModal = ({ isOpen, onClose, email, onEdit, onDelete, onRefresh })
                 </span>
               )}
             </div>
-            <p style={{ lineHeight: 1.4, margin: 0 }}>{email.ai_summary}</p>
+            <RenderHtmlText text={email.ai_summary} style={{ fontSize: '0.875rem' }} />
           </div>
         )}
 
@@ -112,15 +113,11 @@ const EmailViewModal = ({ isOpen, onClose, email, onEdit, onDelete, onRefresh })
           borderRadius: '10px',
           background: 'rgba(15, 23, 42, 0.04)',
           border: '1px solid rgba(15, 23, 42, 0.1)',
-          fontSize: '0.925rem',
-          color: '#1e293b',
-          whiteSpace: 'pre-wrap',
-          lineHeight: 1.6,
           maxHeight: '260px',
           overflowY: 'auto',
           marginBottom: '1.25rem',
         }}>
-          {email.body || email.body_text || email.snippet || 'No message content available.'}
+          <EmailBody email={email} />
         </div>
 
         {/* Attachments Section */}

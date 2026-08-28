@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api"
     
     # Environment & URLs
-    FRONTEND_URL: str = "http://localhost:5173"
+    FRONTEND_URL: str = "http://localhost:8000"
     BACKEND_URL: str = "http://localhost:8000"
     
     # Database
@@ -32,6 +32,6 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: str = ""
     GEMINI_MODEL: str = "gemini-flash-latest"
     
-    model_config = SettingsConfigDict(env_file=".env", case_sensitive=True, extra="ignore")
+    model_config = SettingsConfigDict(env_file=os.path.join(os.path.dirname(__file__), "..", "..", ".env"), case_sensitive=True, extra="ignore")
 
 settings = Settings()

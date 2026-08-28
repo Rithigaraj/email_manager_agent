@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { emailAPI } from '../services/api';
 import EmailModal from '../components/EmailModal';
 import EmailViewModal from '../components/EmailViewModal';
+import EmailBody, { RenderHtmlText } from '../components/EmailBody';
 import { Search, Plus, Trash2, Edit3, Sparkles, Filter, Mail, ChevronDown, ChevronUp, Eye } from 'lucide-react';
 
 const Emails = () => {
@@ -231,7 +232,7 @@ const Emails = () => {
                         <strong style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#a855f7', marginBottom: '0.25rem' }}>
                           <Sparkles size={14} /> AI Summary & Sentiment ({email.ai_sentiment})
                         </strong>
-                        {email.ai_summary}
+                        <RenderHtmlText text={email.ai_summary} style={{ fontSize: '0.85rem' }} />
                       </div>
                     )}
 
@@ -239,12 +240,8 @@ const Emails = () => {
                       padding: '1rem',
                       borderRadius: '8px',
                       background: 'rgba(15, 23, 42, 0.05)',
-                      fontSize: '0.9rem',
-                      color: '#475569',
-                      whiteSpace: 'pre-wrap',
-                      lineHeight: 1.5,
                     }}>
-                      {email.body || email.body_text || email.snippet}
+                      <EmailBody email={email} style={{ fontSize: '0.9rem', color: '#475569' }} />
                     </div>
                   </div>
                 )}
